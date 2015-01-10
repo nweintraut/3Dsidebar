@@ -105,6 +105,13 @@ class ContainerViewController: UIViewController {
     // menuViewController.view.frame.origin.x = menuWidth * CGFloat(percent) - menuWidth
     menuViewController.view.layer.transform = menuTransformForPerceont(percent)
     menuViewController.view.alpha = CGFloat(max(0.2 , percent))
+    
+    let centerVC = (centerViewController as UINavigationController).viewControllers.first as? CenterViewController
+    if var button = centerVC!.menuButton? {
+        var identity = CATransform3DIdentity
+        identity.m34 = -1.0 / 1000
+        button.imageView.layer.transform = CATransform3DRotate(identity, percent * CGFloat(M_PI), 1.0, 1.0, 0.0)
+    }
   }
     func menuTransformForPerceont(percent: CGFloat) -> CATransform3D {
         var identity = CATransform3DIdentity
